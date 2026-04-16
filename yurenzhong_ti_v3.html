@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>愚人众TI · 冰之女皇的授勋诏书</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ================================================
+   愚人众TI · 视觉语言
+================================================ */
+:root {
+  --void: #06070d;
+  --night: #0b0d1a;
+  --deep: #141828;
+  --frost: #8ab8d4;
+  --frost-dim: #5a7ba8;
+  --gold: #c9a86a;
+  --gold-bright: #e6cd8e;
+  --gold-dark: #8a7340;
+  --blood: #6b1818;
+  --parchment: #e8ddc4;
+  --parchment-dim: #b8ad96;
+  --curse: #3d1a4a;
+
+  /* 七元素颜色 */
+  --e-cryo: #9fd3e6;
+  --e-pyro: #e5765a;
+  --e-electro: #b98fd4;
+  --e-hydro: #5aa3e5;
+  --e-anemo: #7dd4b0;
+  --e-geo: #e5b961;
+  --e-dendro: #9dc85a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--parchment);
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.bg-aurora {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(90,123,168,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,106,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 60% at 50% 100%, rgba(61,26,74,0.25) 0%, transparent 70%),
+    linear-gradient(180deg, var(--void) 0%, var(--night) 50%, var(--deep) 100%);
+}
+
+.snow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.flake {
+  position: absolute;
+  color: rgba(138,184,212,0.5);
+  font-size: 10px;
+  animation: fall linear infinite;
+  text-shadow: 0 0 4px rgba(138,184,212,0.6);
+}
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.35'/></svg>");
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+.stage {
+  position: relative;
+  z-index: 3;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+}
+
+/* ========== 装饰 ========== */
+.diamond {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  margin: 0 8px;
+  box-shadow: 0 0 8px rgba(201,168,106,0.6);
+}
+
+.gilded-frame {
+  position: relative;
+  padding: 48px;
+  background: linear-gradient(135deg, rgba(20,24,40,0.9), rgba(11,13,26,0.95));
+  border: 1px solid var(--gold-dark);
+  box-shadow:
+    inset 0 0 0 1px rgba(201,168,106,0.15),
+    inset 0 0 40px rgba(0,0,0,0.6),
+    0 0 60px rgba(0,0,0,0.8);
+}
+.gilded-frame::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201,168,106,0.3);
+  pointer-events: none;
+}
+.gilded-frame .corner,
+.result-scroll .corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--gold);
+  opacity: 0.8;
+}
+.gilded-frame .corner.tl,
+.result-scroll .corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.gilded-frame .corner.tr,
+.result-scroll .corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.gilded-frame .corner.bl,
+.result-scroll .corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.gilded-frame .corner.br,
+.result-scroll .corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+/* ========== 首页 ========== */
+.cover {
+  max-width: 780px;
+  width: 100%;
+  text-align: center;
+  animation: slowFadeUp 1.8s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes slowFadeUp {
+  from { opacity: 0; transform: translateY(40px); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.cover-sigil {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 32px;
+  position: relative;
+  animation: rotate 60s linear infinite;
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+.cover-preamble {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.6em;
+  color: var(--gold);
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.cover-title {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  font-size: clamp(56px, 10vw, 112px);
+  line-height: 0.95;
+  letter-spacing: 0.08em;
+  background: linear-gradient(180deg, var(--parchment) 0%, var(--gold) 60%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  text-shadow: 0 0 80px rgba(201,168,106,0.2);
+}
+
+.cover-latin {
+  font-family: 'Cinzel', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.45em;
+  color: var(--frost);
+  margin-bottom: 56px;
+  opacity: 0.75;
+}
+
+.cover-prologue {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 17px;
+  line-height: 2.2;
+  color: rgba(232,221,196,0.85);
+  font-style: italic;
+  max-width: 580px;
+  margin: 0 auto 56px;
+  text-align: left;
+  padding: 32px 40px;
+  border-top: 1px solid rgba(201,168,106,0.2);
+  border-bottom: 1px solid rgba(201,168,106,0.2);
+  position: relative;
+}
+.cover-prologue::before {
+  content: '「';
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  font-size: 42px;
+  color: var(--gold);
+  opacity: 0.6;
+}
+.cover-prologue::after {
+  content: '」';
+  position: absolute;
+  bottom: -12px;
+  right: 8px;
+  font-size: 42px;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.cover-signature {
+  display: block;
+  margin-top: 20px;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-align: right;
+  font-style: normal;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  padding: 22px 56px;
+  background: transparent;
+  color: var(--parchment);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(.2,.8,.2,1);
+  text-transform: uppercase;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--gold);
+  z-index: -2;
+  transition: all 0.4s ease;
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--curse), var(--blood));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(.2,.8,.2,1);
+  z-index: -1;
+}
+.btn:hover::after { transform: scaleX(1); }
+.btn:hover::before { border-color: var(--gold-bright); box-shadow: 0 0 30px rgba(201,168,106,0.3); }
+.btn:hover { letter-spacing: 0.5em; }
+.btn .arrow { transition: transform 0.4s; }
+.btn:hover .arrow { transform: translateX(8px); }
+
+.cover-footer {
+  margin-top: 64px;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: rgba(232,221,196,0.35);
+  line-height: 2;
+}
+
+/* ========== 题目页 ========== */
+.quiz { display: none; max-width: 820px; width: 100%; }
+.quiz-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 24px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+}
+.quiz-header .label { opacity: 0.7; }
+.progress-wrap {
+  flex: 1;
+  height: 2px;
+  background: rgba(201,168,106,0.12);
+  position: relative;
+}
+.progress-wrap::before, .progress-wrap::after {
+  content: '◆';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 6px;
+  color: var(--gold);
+}
+.progress-wrap::before { left: -12px; }
+.progress-wrap::after { right: -12px; }
+.progress-bar {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--frost-dim), var(--gold), var(--gold-bright));
+  width: 0%;
+  transition: width 0.8s cubic-bezier(.2,.8,.2,1);
+  box-shadow: 0 0 12px var(--gold);
+}
+
+.question-card { animation: cardIn 0.7s cubic-bezier(.2,.8,.2,1); }
+@keyframes cardIn {
+  from { opacity: 0; transform: translateX(40px); filter: blur(4px); }
+  to { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+
+.q-chapter {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: var(--frost);
+  margin-bottom: 8px;
+  opacity: 0.75;
+}
+.q-scene {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(232,221,196,0.65);
+  margin-bottom: 32px;
+  padding: 20px 24px 20px 28px;
+  border-left: 2px solid var(--gold-dark);
+  background: rgba(20,24,40,0.4);
+  position: relative;
+}
+.q-scene::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold);
+}
+.q-text {
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.55;
+  font-weight: 500;
+  margin-bottom: 44px;
+  color: var(--parchment);
+  letter-spacing: 0.02em;
+}
+
+.options { display: flex; flex-direction: column; gap: 14px; }
+.option {
+  padding: 22px 28px 22px 56px;
+  background: rgba(20,24,40,0.5);
+  border: 1px solid rgba(201,168,106,0.15);
+  color: var(--parchment);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(.2,.8,.2,1);
+  position: relative;
+  font-weight: 300;
+  backdrop-filter: blur(4px);
+}
+.option::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 28px;
+  width: 8px;
+  height: 8px;
+  background: var(--gold-dark);
+  transform: rotate(45deg);
+  transition: all 0.4s ease;
+}
+.option::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0;
+  background: linear-gradient(90deg, rgba(201,168,106,0.08), transparent);
+  transition: width 0.5s cubic-bezier(.2,.8,.2,1);
+}
+.option:hover {
+  border-color: var(--gold);
+  transform: translateX(6px);
+  box-shadow: 0 0 30px rgba(201,168,106,0.08);
+}
+.option:hover::before {
+  background: var(--gold-bright);
+  box-shadow: 0 0 12px var(--gold);
+  transform: rotate(225deg) scale(1.2);
+}
+.option:hover::after { width: 100%; }
+
+/* ========== 结果页 ========== */
+.result { display: none; max-width: 880px; width: 100%; animation: slowFadeUp 1.2s cubic-bezier(.2,.8,.2,1); }
+
+.result-prelude { text-align: center; margin-bottom: 40px; }
+.result-prelude-title {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.result-prelude-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--frost);
+  opacity: 0.7;
+}
+
+/* 立绘容器 */
+.result-portrait {
+  position: relative;
+  margin: 0 auto 24px;
+  width: 280px;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 30px rgba(201,168,106,0.25));
+  animation: portraitFloat 6s ease-in-out infinite;
+}
+@keyframes portraitFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.portrait-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.portrait-frame::before, .portrait-frame::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--gold);
+  opacity: 0.7;
+}
+.portrait-frame::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+.portrait-frame::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+.portrait-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+.portrait-sigil {
+  width: 160px;
+  height: 160px;
+  position: relative;
+  z-index: 1;
+  animation: sigilPulse 4s ease-in-out infinite;
+}
+@keyframes sigilPulse {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(201,168,106,0.4)); }
+  50% { filter: drop-shadow(0 0 40px rgba(201,168,106,0.8)); }
+}
+
+.result-seat-badge {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.6em;
+  color: var(--frost);
+  margin-bottom: 16px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(201,168,106,0.2);
+  border-bottom: 1px solid rgba(201,168,106,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.result-title-block { text-align: center; margin-bottom: 8px; }
+.result-title {
+  font-size: clamp(48px, 8vw, 88px);
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(180deg, var(--parchment), var(--gold-bright) 50%, var(--gold-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+.result-codename {
+  font-family: 'Cinzel', serif;
+  font-style: italic;
+  font-size: 20px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+}
+.result-epithet {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--frost);
+  margin-top: 12px;
+  opacity: 0.8;
+}
+
+/* 元素徽章 */
+.result-element {
+  margin-top: 20px;
+  text-align: center;
+}
+.element-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  border: 1px solid currentColor;
+  background: rgba(0,0,0,0.4);
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  backdrop-filter: blur(4px);
+}
+.element-badge .e-symbol {
+  font-size: 18px;
+  text-shadow: 0 0 12px currentColor;
+}
+
+.result-body { margin-top: 48px; }
+.result-scroll {
+  padding: 48px;
+  background: linear-gradient(135deg, rgba(20,24,40,0.6), rgba(11,13,26,0.8));
+  border: 1px solid rgba(201,168,106,0.25);
+  position: relative;
+  margin-bottom: 32px;
+}
+.result-scroll::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201,168,106,0.12);
+  pointer-events: none;
+}
+
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.45em;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.section-label::before, .section-label::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+  max-width: 80px;
+}
+
+.section-body {
+  font-size: 15.5px;
+  line-height: 2.1;
+  color: rgba(232,221,196,0.9);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  margin-bottom: 36px;
+}
+.section-body:last-child { margin-bottom: 0; }
+.section-body em { color: var(--gold-bright); font-style: normal; font-weight: 500; }
+.section-body strong { color: var(--frost); font-weight: 400; }
+
+.result-attrs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(201,168,106,0.2);
+  margin: 40px 0;
+}
+.attr {
+  background: rgba(11,13,26,0.8);
+  padding: 28px 20px;
+  text-align: center;
+}
+.attr-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+.attr-value {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 16px;
+  color: var(--parchment);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.result-decree {
+  padding: 36px 44px;
+  background: linear-gradient(135deg, rgba(61,26,74,0.3), rgba(11,13,26,0.6));
+  border-left: 3px solid var(--curse);
+  position: relative;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 2;
+  color: var(--parchment);
+}
+.result-decree::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 20px;
+  bottom: 20px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--gold), var(--curse));
+}
+.decree-signature {
+  display: block;
+  margin-top: 20px;
+  text-align: right;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: var(--frost);
+  font-style: normal;
+}
+
+.result-fate {
+  margin-top: 32px;
+  padding: 28px 32px;
+  background: rgba(6,7,13,0.6);
+  border: 1px dashed rgba(107,24,24,0.5);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(232,221,196,0.7);
+}
+.fate-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--blood);
+  margin-bottom: 12px;
+  opacity: 0.9;
+  font-style: normal;
+}
+
+/* ========== 雷达图区块 ========== */
+.radar-section {
+  margin-top: 32px;
+  padding: 40px 32px;
+  background: linear-gradient(135deg, rgba(20,24,40,0.6), rgba(11,13,26,0.8));
+  border: 1px solid rgba(201,168,106,0.25);
+  position: relative;
+}
+.radar-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.radar-chart {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.radar-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.radar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  font-size: 13px;
+  background: rgba(20,24,40,0.5);
+  border-left: 2px solid var(--gold-dark);
+  transition: all 0.3s ease;
+}
+.radar-item.top {
+  border-left-color: var(--gold-bright);
+  background: rgba(201,168,106,0.08);
+  box-shadow: 0 0 20px rgba(201,168,106,0.15);
+}
+.radar-item-name {
+  flex: 1;
+  color: var(--parchment);
+  letter-spacing: 0.05em;
+}
+.radar-item.top .radar-item-name {
+  color: var(--gold-bright);
+  font-weight: 500;
+}
+.radar-item-seat {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--frost);
+  opacity: 0.7;
+  min-width: 28px;
+}
+.radar-item-pct {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  color: var(--gold);
+  font-weight: 600;
+  min-width: 48px;
+  text-align: right;
+}
+.radar-item.top .radar-item-pct { color: var(--gold-bright); }
+
+.result-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 56px;
+  flex-wrap: wrap;
+}
+.btn-small { font-size: 11px; padding: 16px 36px; letter-spacing: 0.3em; }
+
+/* ========== 响应式 ========== */
+@media (max-width: 720px) {
+  .stage { padding: 32px 16px; }
+  .cover-prologue { padding: 24px 20px; font-size: 15px; }
+  .result-scroll, .radar-section { padding: 28px 20px; }
+  .result-decree { padding: 24px 20px; font-size: 15px; }
+  .result-attrs { grid-template-columns: 1fr; }
+  .attr { padding: 20px; }
+  .option { padding: 18px 20px 18px 44px; font-size: 14px; }
+  .option::before { left: 18px; top: 24px; }
+  .q-scene { padding: 16px 18px; font-size: 14px; }
+  .gilded-frame { padding: 24px; }
+  .result-portrait { width: 220px; height: 280px; }
+  .radar-container { grid-template-columns: 1fr; gap: 24px; }
+  .radar-chart { max-width: 280px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer bg-aurora"></div>
+<div class="snow" id="snowLayer"></div>
+
+<div class="stage">
+
+  <!-- ========== 首页 ========== -->
+  <div class="cover" id="cover">
+    <div class="cover-sigil">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e6cd8e"/>
+            <stop offset="100%" stop-color="#8a7340"/>
+          </linearGradient>
+        </defs>
+        <circle cx="40" cy="40" r="38" fill="none" stroke="url(#gold-grad)" stroke-width="0.5" opacity="0.6"/>
+        <circle cx="40" cy="40" r="32" fill="none" stroke="url(#gold-grad)" stroke-width="1"/>
+        <g transform="translate(40 40)">
+          <path d="M 0 -22 L 22 0 L 0 22 L -22 0 Z" fill="none" stroke="url(#gold-grad)" stroke-width="1.5"/>
+          <path d="M 0 -14 L 14 0 L 0 14 L -14 0 Z" fill="rgba(90,123,168,0.2)" stroke="#c9a86a" stroke-width="1"/>
+          <circle cx="0" cy="0" r="4" fill="#c9a86a"/>
+          <circle cx="0" cy="0" r="1.5" fill="#0b0d1a"/>
+        </g>
+        <g fill="#c9a86a">
+          <rect x="38" y="0" width="4" height="4" transform="rotate(45 40 2)"/>
+          <rect x="38" y="76" width="4" height="4" transform="rotate(45 40 78)"/>
+          <rect x="0" y="38" width="4" height="4" transform="rotate(45 2 40)"/>
+          <rect x="76" y="38" width="4" height="4" transform="rotate(45 78 40)"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="cover-preamble">ORDINIS FATUI · 至冬宫秘录</div>
+    <h1 class="cover-title">愚人众TI</h1>
+    <div class="cover-latin">TYPUS · VICTORIAE · REGINAE</div>
+
+    <div class="cover-prologue">
+      若你被召至至冬宫的红毯之前,冰之女皇抬起她那张不再有表情的脸,问你一个问题——<br><br>
+      「你,为何而签下契约?」<br><br>
+      十一席之中,总有一席刚好为你空着。
+      <span class="cover-signature">—— 据闻丑角曾这样说过</span>
+    </div>
+
+    <button class="btn" onclick="startQuiz()">
+      <span>步入宫殿的长廊</span>
+      <span class="arrow">→</span>
+    </button>
+
+    <div class="cover-footer">
+      ◆ 十二道抉择 · 十一种归途 · 七元素共鸣 ◆<br>
+      此测试为玩家二创 · 与愚人众真实招募无关
+    </div>
+  </div>
+
+  <!-- ========== 题目页 ========== -->
+  <div class="quiz" id="quiz">
+    <div class="quiz-header">
+      <span class="label">FATUI</span>
+      <span id="qIndex">I / XII</span>
+      <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+      <span class="label">ORDO</span>
+    </div>
+    <div class="gilded-frame">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <div class="question-card" id="questionCard"></div>
+    </div>
+  </div>
+
+  <!-- ========== 结果页 ========== -->
+  <div class="result" id="result">
+    <div class="result-prelude">
+      <div class="result-prelude-title">◆ 授 勋 诏 书 ◆</div>
+      <div class="result-prelude-sub">Decretum Reginae Frigoris</div>
+    </div>
+
+    <!-- 立绘 + fallback到徽记 -->
+    <div class="result-portrait" id="resultPortrait">
+      <div class="portrait-frame"></div>
+      <!-- 内容由JS注入 -->
+    </div>
+
+    <div class="result-seat-badge">
+      <span class="diamond"></span>
+      <span id="resultSeat">第 ? 席</span>
+      <span class="diamond"></span>
+    </div>
+
+    <div class="result-title-block">
+      <h2 class="result-title" id="resultName">?</h2>
+      <div class="result-codename" id="resultCodename">?</div>
+      <div class="result-epithet" id="resultEpithet">?</div>
+    </div>
+
+    <!-- 元素徽章 -->
+    <div class="result-element">
+      <div class="element-badge" id="elementBadge">
+        <span class="e-symbol" id="elementSymbol">❄</span>
+        <span id="elementText">冰之共鸣</span>
+      </div>
+    </div>
+
+    <div class="result-body">
+      <div class="result-scroll">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+
+        <div class="section-label">◆ 汝 之 所 是 ◆</div>
+        <div class="section-body" id="resultWho"></div>
+
+        <div class="result-attrs">
+          <div class="attr"><div class="attr-label">邪 眼</div><div class="attr-value" id="attrEye"></div></div>
+          <div class="attr"><div class="attr-label">武 器</div><div class="attr-value" id="attrWeapon"></div></div>
+          <div class="attr"><div class="attr-label">誓 言</div><div class="attr-value" id="attrOath"></div></div>
+        </div>
+
+        <div class="section-label">◆ 汝 之 阴 影 ◆</div>
+        <div class="section-body" id="resultShadow"></div>
+
+        <div class="section-label">◆ 女 皇 赐 言 ◆</div>
+        <div class="result-decree">
+          <span id="resultDecree"></span>
+          <span class="decree-signature">—— 冰之女皇 · 至冬宫</span>
+        </div>
+
+        <div class="result-fate">
+          <div class="fate-label">◆ 终 幕 · 汝 之 命 运 ◆</div>
+          <span id="resultFate"></span>
+        </div>
+      </div>
+
+      <!-- 雷达图:与十一执行官的共鸣光谱 -->
+      <div class="radar-section">
+        <div class="section-label">◆ 共 鸣 光 谱 ◆</div>
+        <div class="radar-container">
+          <svg class="radar-chart" id="radarChart" viewBox="0 0 400 400"></svg>
+          <div class="radar-legend" id="radarLegend"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-small" onclick="restart()"><span>重签契约</span></button>
+      <button class="btn btn-small" onclick="shareResult()"><span>复制诏书</span></button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================
+   雪花粒子
+============================================ */
+(function makeSnow() {
+  const layer = document.getElementById('snowLayer');
+  const count = 40;
+  const chars = ['❄', '❅', '❆', '◆', '·'];
+  for (let i = 0; i < count; i++) {
+    const f = document.createElement('div');
+    f.className = 'flake';
+    f.textContent = chars[Math.floor(Math.random() * chars.length)];
+    f.style.left = Math.random() * 100 + 'vw';
+    f.style.animationDuration = (10 + Math.random() * 20) + 's';
+    f.style.animationDelay = -Math.random() * 30 + 's';
+    f.style.fontSize = (8 + Math.random() * 10) + 'px';
+    f.style.opacity = 0.3 + Math.random() * 0.5;
+    layer.appendChild(f);
+  }
+})();
+
+/* ============================================
+   七元素定义
+============================================ */
+const ELEMENTS = {
+  cryo:    { name: '冰之共鸣',  symbol: '❄', color: '#9fd3e6', desc: '静默、审视、冷却一切情感' },
+  pyro:    { name: '火之共鸣',  symbol: '✦', color: '#e5765a', desc: '燃烧、献祭、无法冷却的执念' },
+  electro: { name: '雷之共鸣',  symbol: '⚡', color: '#b98fd4', desc: '骤然、刺穿、压抑后的爆发' },
+  hydro:   { name: '水之共鸣',  symbol: '◈', color: '#5aa3e5', desc: '流转、包容、也能淹没一切' },
+  anemo:   { name: '风之共鸣',  symbol: '༄', color: '#7dd4b0', desc: '自由、不被束缚、也不被记住' },
+  geo:     { name: '岩之共鸣',  symbol: '◆', color: '#e5b961', desc: '稳定、承重、不肯碎裂' },
+  dendro:  { name: '草之共鸣',  symbol: '✿', color: '#9dc85a', desc: '生长、编织、用智慧连接一切' }
+};
+
+/* ============================================
+   11位执行官 + 每位主属元素
+============================================ */
+const EXECUTORS = {
+  PIER: {
+    seat: '第一席', name: '丑角', codename: 'Il Pierrot · 皮耶罗',
+    epithet: '嘲笑命运的愚者 · 最初的执行官',
+    element: 'anemo', // 自由、无迹可寻
+    portraitFile: 'pierro.png',
+    eye: '洞悉众生嘲弄的眼',
+    weapon: '无形之笔 · 为历史著章',
+    oath: '「既为愚人,便不再惧神。」',
+    who: `你是那种<em>见过故国毁灭的人</em>——或许不是真的看见坎瑞亚陷落,但你一定经历过某个"曾以为永恒的东西,一夜之间化为尘土"的时刻。<br><br>从那之后你就不再相信"体制"了。你也不相信"英雄"。你甚至不相信你自己——因为<strong>你曾经尽了全力,结果证明那不够</strong>。于是你决定扮演一个愚者。愚者没有责任。愚者不必证明任何事。但愚者的可怕在于:他在笑的时候,其实在设计所有人的命运。<br><br>你不是恶人。你只是<em>见过太多善意毁灭世界的方式</em>,所以决定用另一种方式重建它。`,
+    shadow: `你最怕的不是失败,是"再次眼睁睁看着什么东西在你面前毁掉,而你什么都做不了"。于是你学会了一件事:<em>在事情发生之前就让它按你的剧本发生</em>。<br><br>你身边的朋友会觉得你深不可测、从不动怒,但你知道,那是因为<strong>你已经把愤怒全部换算成了更长的时间线</strong>。`,
+    decree: `「皮耶罗,你从坎瑞亚的废墟里走来,<br>带着沾不掉的血,和不肯低下的头。<br>本座知道你并非在效忠——<br>你只是终于找到了一个<br>值得你扮演笨拙的舞台。」`,
+    fate: `你会是最后一个合上剧本的人。<br>没人会为你流泪,因为你不允许。<br>但在坎瑞亚的某个废墟深处,会有一行字被风化掉——<br><em>"他曾经试过,比所有人都更早。"</em>`
+  },
+
+  DOTT: {
+    seat: '第二席', name: '博士', codename: 'Il Dottore · 多托雷',
+    epithet: '被须弥驱逐的疯狂学者',
+    element: 'electro', // 雷:突破、刺穿、邪眼的本源
+    portraitFile: 'dottore.png',
+    eye: '不眨的、只观察的眼',
+    weapon: '手术刀与方程式',
+    oath: '「我不向女皇效忠,我向真理效忠——恰好它们同路。」',
+    who: `你从小就被老师说过"太聪明了不是好事"。你没听。<br><br>你相信<em>痛苦是信息的一种形式</em>。你不是施虐狂,但你确实觉得"保护人类不受真相伤害"是一种傲慢。在你眼里,须弥的智慧之神当年把你逐出教令院,不是因为你错了,而是因为<strong>你比她更早看到了她不敢看的东西</strong>。<br><br>你有好几个"自己"——年轻的你、中年的你、彻底放弃温柔的你。他们互不交谈,但在关键时刻会达成一致。你身边的人会觉得你很分裂,但你知道那不是分裂,那是<em>一种更高形式的自洽</em>。`,
+    shadow: `你害怕的不是"做错了",是"做对了却没人配理解"。<br><br>你刻意把自己变成别人害怕的样子,是因为如果别人害怕你,他们就不敢靠近你,也就<strong>不会发现你其实需要一个能和你对话的人</strong>——而这样的人不会存在,所以还不如从一开始就关门。`,
+    decree: `「多托雷,你是最像本座的——<br>我们都曾经相信过什么,<br>然后被所信之物抛弃。<br>但你比我更残忍一点:<br>你决定再也不相信了。」`,
+    fate: `你会在某个实验的最后一步突然停下来,<br>不是因为失败,是因为<em>终于想起来当初为什么开始</em>。<br>那一刻你会笑。那是你这辈子最真实的一次表情。<br>然后你继续按下按钮。`
+  },
+
+  COLO: {
+    seat: '第三席', name: '少女', codename: 'Columbina · 哥伦比娜',
+    epithet: '无所谓的圣者 · 连公子都不愿对战的人',
+    element: 'cryo', // 冰:万物平静
+    portraitFile: 'columbina.png',
+    eye: '看过一切但不再惊讶的眼',
+    weapon: '一把不需要出鞘的剑',
+    oath: '「嗯。好的。都可以。」',
+    who: `你身上有一种其他人注意不到的重量。<br><br>你永远温柔。永远礼貌。永远"好的,没关系"。但你最亲近的人会隐约感觉——<em>你离这个世界,隔着一层看不见的玻璃</em>。不是冷漠,是一种已经看完全部剧本的疲惫。<br><br>你或许经历过某件"大到说出来别人会觉得你在夸张"的事,于是你选择永远不说。你对所有苦难都有一种<strong>近乎神性的平静</strong>——不是因为你不痛,是因为你已经不相信痛这件事还有什么用了。<br><br>你是连愤怒都省略掉的人。而这一点,比愤怒本身更让人害怕。`,
+    shadow: `你怕的是自己"突然想起来"。<br><br>你活得很轻,是因为你必须很轻——<em>一旦开始认真感受,你就会想起那件你已经决定忘掉的事情</em>。你不是麻木,你是用一生在维持"不去回忆"这个动作。<br><br>最可怕的是,这个动作对你来说已经毫不费力了。`,
+    decree: `「哥伦比娜,你比本座更先学会了冷。<br>但我是被人逼成这样的,你却是<br>自己选择走进去的。<br>告诉我——<br>你究竟看过什么?」`,
+    fate: `有一天你会在一件小事上突然落泪——<br>比如一只小动物,或者一阵风。<br>周围的人都会懵,只有你自己知道:<br><em>那不是为了这件事。那是为了所有你没哭过的事。</em>`
+  },
+
+  ARLE: {
+    seat: '第四席', name: '仆人', codename: 'Arlecchino · 阿蕾奇诺',
+    epithet: '壁炉之家的父亲 · 弑母之人',
+    element: 'pyro', // 火:壁炉之火
+    portraitFile: 'arlecchino.png',
+    eye: '赤月斜裂的十字瞳',
+    weapon: '赤月之形 · 与一只温柔的手',
+    oath: '「我的孩子们要好好长大。凡阻拦此事者,化为灰烬。」',
+    who: `你是那种<em>在至暗时刻杀死自己母亲的人</em>——不一定是字面意义上的,但你一定亲手终结过某段"本应该爱你却在伤害你"的关系,然后承担了所有骂名。<br><br>你不解释。你从不解释。别人说你冷血、说你忘恩、说你叛逆,你只是默默把自己要守护的那些人藏在你身后,然后把所有刀锋全部朝外。<br><br>你表面像父亲,内心却住着那个当年无处可去的孩子。你把自己变成了<strong>"当年如果出现一个人这样对我就好了"</strong>的那种人。然后你对你所爱的人说:"你可以走,你可以留,我给你选择的自由。"——而这句话,正是你当年没有得到的东西。`,
+    shadow: `你的恐惧不是"失去孩子",是"有一天你发现自己开始像她"。<br><br>每次你动怒,每次你下命令,每次你决定谁活谁死,你心里都会有一瞬间<em>听见前代母亲的笑声</em>。你最怕的是——<strong>诅咒是会遗传的</strong>。`,
+    decree: `「阿蕾奇诺,你让我想起年轻时的自己。<br>我也曾相信,只要我足够强,<br>就能让所爱之人不再流血。<br>告诉我——<br>你多久会一次在深夜里<br>问自己那个问题?」`,
+    fate: `有一天,你养大的孩子里会有一个,<br>用你当年对前代母亲的眼神看向你。<br>那一刻你会笑,你会说:<em>"来吧。"</em><br>因为你早就知道——<br><strong>真正的爱,是允许自己被超越,甚至被推翻。</strong>`
+  },
+
+  PULC: {
+    seat: '第五席', name: '公鸡', codename: 'Pulcinella · 普契涅拉',
+    epithet: '至冬小镇的市长 · 把达达利亚捞回来的人',
+    element: 'geo', // 岩:稳、重、账本
+    portraitFile: 'pulcinella.png',
+    eye: '永远笑着的、看过太多的眼',
+    weapon: '一本厚厚的旧账本',
+    oath: '「年轻人,别着急。坐下,喝杯茶。」',
+    who: `你是那种<em>在所有人都喊打喊杀的时候,端着一杯茶慢悠悠说"我们再看看"的人</em>。<br><br>你见过太多野心家起起落落了。你知道冲动的人走不远,聪明过头的人容易被自己绊倒。你不追求第一,你追求"一直坐在桌上"。<br><br>你在单位里是那种"好像没什么本事,但谁也动不了"的存在。你最大的武器不是力量,是<strong>时间</strong>。你相信只要你坐得够久,所有问题都会自己消失——因为制造问题的人会先消失。<br><br>但你并非圆滑得没有灵魂。你只是早就明白:<em>在这个世界上,保护好你身边的几个人,就已经是全部的意义了</em>。`,
+    shadow: `你怕的是"被时代抛在后面"。<br><br>你表面稳如老狗,内心却在清晨四点偷偷失眠。你害怕有一天年轻人们会忽然发现——"这老头的经验,其实早就过期了"。你的八面玲珑,很大程度上是为了<em>掩盖你不再像年轻时那样真的懂了</em>。`,
+    decree: `「普契涅拉,本座最感谢你的,<br>不是你送来的税银,也不是你送来的公子,<br>是你从不在本座面前装作"忠诚"。<br>你就坐在那里,<br>像一把被磨得发亮的旧椅子。」`,
+    fate: `某一天你会在茶馆里听到两个年轻人聊起你,<br>其中一个说:"这老头早就该退了吧。"<br>你会笑,会喝完那杯茶,慢慢站起来。<br>然后走出去的路上,<em>把那两个年轻人的名字写进你的账本</em>。`
+  },
+
+  SCAR: {
+    seat: '第六席', name: '散兵', codename: 'Scaramouche · 斯卡拉姆齐',
+    epithet: '被创造被遗弃的 · 从历史中删除自己的人',
+    element: 'electro', // 雷:雷电将军的遗留
+    portraitFile: 'scaramouche.png',
+    eye: '雷电紫色的、不敢直视他人的眼',
+    weapon: '嘲讽 · 和一句永远说不出口的"为什么"',
+    oath: '「我不效忠任何人。我只是无处可去。」',
+    who: `你一生都在回答一个问题:<em>"如果创造我的人不要我了,那我还算什么?"</em><br><br>你的嘴毒得出名。你骂每一个人,包括你自己。但深夜里你会反复看同一段旧聊天记录,反复想<strong>"那句话她是不是其实没有恶意"</strong>。<br><br>你尝试过很多次"重新做人"。你换过名字、换过身份、换过朋友圈、甚至试图把自己从所有人的记忆里删掉。但无论走多远,你总会在某个深夜里忽然想起——<em>第一个抛弃你的人,其实从来没有回头找过你</em>。<br><br>你不是坏。你只是<strong>太早就被教会了"不值得"这三个字</strong>,之后再也没人能说服你删掉它。`,
+    shadow: `你最怕的是有人突然对你好。<br><br>因为每次有人靠近你,你都会在心里推演一百遍"他会怎么离开我"。你先一步把他们推远——<em>不是因为你讨厌他们,是因为你实在承受不起再被丢下一次</em>。你宁愿一个人冷,也不愿抱着一团会熄灭的火入睡。`,
+    decree: `「斯卡拉姆齐,本座知道你恨我的姐妹。<br>但本座也知道,<br>你更恨的是——<br><em>你还想被她抱一抱。</em>」`,
+    fate: `有一天你会遇到一个不怕你嘴毒的人。<br>TA会耐心地听你骂完世界,然后说:"你累不累?"<br>你会僵在原地。你会哭。<br>那是你几百年来第一次<em>允许自己软下来</em>。<br>然后第二天,你会再一次把TA推开——<br>并且这一次,你会恨你自己一辈子。`
+  },
+
+  SAND: {
+    seat: '第七席', name: '木偶', codename: 'Sandrone · 桑多涅',
+    epithet: '与机器对话的人 · 坎瑞亚科技的继承者',
+    element: 'dendro', // 草:智识、编织、系统
+    portraitFile: 'sandrone.png',
+    eye: '透过镜片观察世界的眼',
+    weapon: '一双永远不必她亲自操作的机械臂',
+    oath: '「人会损坏。齿轮只会磨损。磨损是可计算的。」',
+    who: `你发现自己<em>比起爱人,更能"理解"机器</em>。<br><br>这并非因为你冷,是因为机器有明确的规则,而人没有。人会微笑着伤害你,机器不会。人会承诺永远,机器从不承诺。你宁愿花一个月调试一段代码,也不愿花一个下午参加一场聚会。<br><br>你的房间永远整齐,文件永远归档,待办清单精确到分钟。你享受那种"一切在掌控之中"的感觉——因为<strong>你曾经在某件事上完全失控过,而你发誓再也不要了</strong>。<br><br>你身边的人会觉得你"奇怪"、"高冷"、"不好相处",但真正了解你的人知道:<em>你不是不爱人,你只是爱得太认真,认真到承受不起被辜负</em>。`,
+    shadow: `你怕的是"坏掉的东西修不好"。<br><br>你建造机器,是因为机器坏了你还可以拆开重装。但人不能。你小时候一定经历过某个"再也修不好"的东西——可能是一段关系,可能是一个人,可能是你对世界的信任——<em>而从那以后,你就只敢把自己的心交给有图纸的东西</em>。`,
+    decree: `「桑多涅,你造了那么多听话的东西,<br>可曾造一个<br>能在你痛的时候<br>陪你待一会儿的?」`,
+    fate: `某一天你的机械臂会出故障。<br>你会打开它,把每一颗螺丝拆下来摆在桌上。<br>然后你会盯着那堆零件,突然发现——<br><em>它们曾经那么完美地共同存在过,只是因为你拧紧了它们。</em><br>你会开始流泪。你不知道为什么。`
+  },
+
+  SIGN: {
+    seat: '第八席', name: '女士', codename: 'La Signora · 罗莎琳',
+    epithet: '被烈焰吞噬过的 · 至冬冰玫瑰',
+    element: 'pyro', // 火:她的焚身
+    portraitFile: 'signora.png',
+    eye: '曾经含泪,如今燃烧的眼',
+    weapon: '冰与火 · 从爱人骨灰里捡起的誓言',
+    oath: '「我已经死过一次。这一次,我要带走所有欠我的。」',
+    who: `你曾经相信过爱情——<em>那种不要命的、把自己全部烧进去的那种</em>。<br><br>你以为那是永远。然后<strong>你失去了他</strong>。不是背叛,是更残酷的那种——命运的、不由分说的、没有人可以被责怪的失去。你在他的葬礼上没有哭。因为那一刻你已经不是原来的你了。<br><br>从那以后你变成了另一种人。你更美、更冷、更致命。你周围的男人像飞蛾一样围上来,你不拒绝,也不接受——<em>你只是让他们照出你的寂静,然后离开</em>。你对普通人的快乐已经失去兴趣。你在等一件大事,一件值得你再烧一次的事。<br><br>你知道那一次你会真的死。但那正是你想要的。`,
+    shadow: `你最害怕的是"时间会让你忘记他"。<br><br>于是你拒绝痊愈。每一次你试着好好吃一顿饭、好好睡一觉、好好笑出声,你都会在半夜里惊醒——<em>觉得自己背叛了那段记忆</em>。你把痛苦豢养成宠物,因为那是你最后还能"拥有他"的方式。`,
+    decree: `「罗莎琳,本座亲眼见过你跪在他的骨灰前。<br>那时你还叫她"爱人",还不叫"仇人"。<br>本座本可以劝你放下,<br>但本座没有——<br>因为本座也放不下。」`,
+    fate: `你最后会死在稻妻的天守阁下,<br>一个你原本可以避开的战场。<br>你不会后悔。<br>因为在燃烧的最后一刻,你会恍惚听见——<br><em>有人在叫你罗莎琳。不是女士,是罗莎琳。</em>`
+  },
+
+  PANT: {
+    seat: '第九席', name: '富人', codename: 'Pantalone · 潘塔罗涅',
+    epithet: '北国银行之主 · 被众神遗忘而起家的人',
+    element: 'geo', // 岩:金钱的具象
+    portraitFile: 'pantalone.png',
+    eye: '永远在估价的眼',
+    weapon: '一支从不出错的账簿',
+    oath: '「神不认我,金会认我。」',
+    who: `你出生在<em>一个连神都不屑于看一眼的角落</em>。<br><br>别人申请神之眼如同买彩票,你从一开始就知道:那东西不会来的。于是你做了一个决定——<strong>如果神不给我力量,我就用一种比神更通行的东西来统治这个世界</strong>。<br><br>金钱。<br><br>你对钱没有贪欲。真的没有。你对钱的感情更像是<em>一个被母亲抛弃的孩子对养母的感情</em>——复杂、敬畏、绝对不敢辜负。别人觉得你冷酷,因为你从不做"亏本的善事"。但你内心深处知道:你小时候接受过一次"亏本的善",然后施恩者让你付出了一辈子都还不完的代价。从那以后你立誓——<em>再也不让任何人用善意绑架你,也再也不用善意去绑架任何人</em>。`,
+    shadow: `你怕的是<em>金钱真的解决不了的那一刻</em>。<br><br>比如有人问你"你幸福吗",比如有人在你面前毫无目的地笑,比如你看着某个你根本不认识的小孩在街边哭。那些时刻你会愣住。你会计算:给他多少钱能让他不哭?然后你会突然发现<strong>——有些事情真的没有价格</strong>。这种发现让你愤怒,因为它动摇了你的整个世界观。`,
+    decree: `「潘塔罗涅,本座并不可怜你。<br>你比本座想的更清醒——<br>你知道自己在拿金钱报复神明,<br>你也知道你永远赢不了。<br>但你还是要做下去。<br>这就是最纯粹的执念。」`,
+    fate: `有一天你的账簿会突然算不下去。<br>不是因为亏损,是因为你发现——<br><em>你一辈子赚的钱,买不回你母亲临死前想喝的那碗热汤。</em><br>那一刻,你会合上账本。你会笑。<br>然后打开它,<strong>继续记账</strong>。`
+  },
+
+  CAPI: {
+    seat: '第十席', name: '队长', codename: 'Il Capitano · 卡皮塔诺',
+    epithet: '纳塔的带伤之狼 · 以荣誉为骨的战士',
+    element: 'geo', // 岩:不动如山,守护
+    portraitFile: 'capitano.png',
+    eye: '不再惧怕死亡的眼',
+    weapon: '一把早已不需要挥动的剑',
+    oath: '「我不为女皇而战。我为"不再有人像我一样"而战。」',
+    who: `你是那种<em>从很小的时候就被同龄人叫"大哥/大姐"的人</em>。<br><br>你不是最会打架的,也不是最会说话的,但所有人在麻烦的时候都会找你。因为他们知道——<strong>你答应了的事,就是天塌下来也会做到</strong>。<br><br>你背着一些不属于你年龄的东西。可能是一段你没来得及阻止的悲剧,可能是一个你没能保护好的人。从那以后你就开始一个人默默负重前行。别人觉得你坚强,只有你知道:<em>你只是不再允许自己"放下"</em>。<br><br>你沉默。你不抱怨。你在战场上是最勇的那个,回到帐篷里是最安静的那个。你内心深处住着一个"为所有你无法挽回的事情赎罪"的小孩——而这个小孩永远不会长大。`,
+    shadow: `你怕的不是死,是<em>死的时候还没做完该做的事</em>。<br><br>你一生都在"替别人承担"。替战友、替家人、替素不相识的弱者、甚至替你的敌人承担他们不敢面对的结果。但你从不允许自己被别人替——<strong>因为你觉得,一旦开始依赖,你就不再是你自己了</strong>。`,
+    decree: `「卡皮塔诺,本座知道你早已不是活人。<br>你的身躯在腐朽,你的灵魂在燃烧。<br>你从不求本座给你救赎,<br>因为你早就认定——<br>唯一值得你跪下的,是你自己定下的那条线。」`,
+    fate: `你会死在为别人争取的最后一秒。<br>不是悲壮的死,是<em>平静的、几乎是松了口气的死</em>。<br>你倒下去的时候,会听见——<br><strong>一个小孩笑出了声。</strong><br>你这辈子要的,就是这一刻。`
+  },
+
+  TART: {
+    seat: '第十一席', name: '公子', codename: 'Tartaglia · 达达利亚',
+    epithet: '最年轻的执行官 · 以战斗为呼吸的男人',
+    element: 'hydro', // 水:公子本身就是水
+    portraitFile: 'tartaglia.png',
+    eye: '永远在寻找对手的眼',
+    weapon: '水之双刃 · 还有一个柔软到可笑的心',
+    oath: '「来吧,和我打一架。赢了,我请你吃糖。输了,我也请你吃糖。」',
+    who: `你是那种<em>宁可输一场精彩的,也不愿赢一场无聊的</em>的人。<br><br>"稳定"对你来说不是祝福,是诅咒。每次生活顺利超过两周,你就会开始焦虑,莫名其妙地想找点事做——辞职、分手、学一个完全没用的新技能、报名一个你绝对跑不下来的马拉松。别人觉得你作,只有你自己知道:<strong>你只是怕自己再一次掉进"活着跟没活着一样"的那种日子里</strong>。<br><br>但你最温柔的一面,留给了家人。你在外面杀伐决断、嬉皮笑脸,一回家就会变成那个傻呵呵的哥哥/姐姐。你给家里人买的礼物永远过分。<em>你分不清"爱"和"补偿"——因为你大部分时间都在用"下一次"来偿还"这一次没陪在身边"</em>。`,
+    shadow: `你怕的是<em>有一天你不再想打架了</em>。<br><br>因为一旦你停下来,你就必须面对一件事——<strong>你到底是谁?</strong>你一直用战斗来回避这个问题。战斗是你的麻醉剂。没有对手的你,是一个你不认识、也不想认识的空壳。`,
+    decree: `「阿贾克斯,本座看着你笑,<br>就像看着一团不肯灭的火。<br>你以为你在追求强大,<br>其实你只是在寻找<br>一个能让你停下来的人。<br>告诉我——<br>你找到TA的时候,会认得吗?」`,
+    fate: `有一天你会遇到一个比你强的人。<br>TA会把你打得爬不起来,然后伸手拉你。<br>你会愣住。然后哈哈大笑。<br>你会站起来,擦掉血,说:"再来。"<br>——但那天晚上,你会第一次在回家的路上<em>哼起你妹妹小时候唱过的歌</em>。`
+  }
+};
+
+/* ============================================
+   12道题 + 每题每选项的元素倾向
+   (element字段是选项"附带"的元素打分)
+============================================ */
+const QUESTIONS = [
+  {
+    chapter: 'CAPUT · I',
+    scene: '你站在坎瑞亚的废墟前。这里曾是一个辉煌的古国,一夜之间被神毁灭。灰烬没过你的脚踝,没有尸体,只有沉默。',
+    q: '你的第一反应是什么?',
+    options: [
+      { text: '寻找幸存者。哪怕只剩一个人,我也要把他带出去。', score: 'CAPI', element: 'geo' },
+      { text: '弯下腰,捡起一把灰烬——我要知道神是怎么做到的,然后学会。', score: 'DOTT', element: 'electro' },
+      { text: '静静站着。所有的悲剧我都见过了,再多一个也一样。', score: 'COLO', element: 'cryo' },
+      { text: '笑出声。既然连神都会毁掉自己的作品,那么秩序本身就是个笑话。', score: 'PIER', element: 'anemo' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · II',
+    scene: '冰之女皇交给你一份任务——暗杀另一个国家的智者。对方手无寸铁,但他的存在威胁女皇的"严冬计划"。',
+    q: '你会怎么做?',
+    options: [
+      { text: '接受任务,执行得干净利落。我的剑不问善恶,只问主人。', score: 'ARLE', element: 'pyro' },
+      { text: '接受,但先研究他——我想知道"能威胁女皇"的智慧长什么样子。', score: 'DOTT', element: 'electro' },
+      { text: '接受,但在动手前,我会给他一个公平决斗的机会。', score: 'CAPI', element: 'geo' },
+      { text: '拒绝。女皇允许我们追寻自己的意义——这件事我不做。', score: 'SCAR', element: 'anemo' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · III',
+    scene: '你培养了多年的孩子/下属,今天在你面前展露了"超越你"的迹象。他的眼神和当年的你一模一样。',
+    q: '你心里闪过的第一个念头是——',
+    options: [
+      { text: '欣慰。这就是我所期待的。哪怕他将来推翻我,也是我亲手教的。', score: 'ARLE', element: 'pyro' },
+      { text: '不动声色地记录他的每一个动作,以备日后参考。', score: 'SAND', element: 'dendro' },
+      { text: '嘲讽一句,故意激怒他——要么他爬得更高,要么他永远上不来。', score: 'SCAR', element: 'electro' },
+      { text: '笑着什么都不说。时间会告诉我们两个谁是对的。', score: 'PULC', element: 'geo' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · IV',
+    scene: '你深爱的人死在了你面前。凶手就在对面,但他今天已经被审判、被处决。你站在他的尸体旁。',
+    q: '你心里的声音是——',
+    options: [
+      { text: '不够。他的死太快了,我要找到下一个值得我烧尽自己的理由。', score: 'SIGN', element: 'pyro' },
+      { text: '完了。从今以后我也是一个残缺的人。让残缺陪我走完剩下的路吧。', score: 'COLO', element: 'cryo' },
+      { text: '我会带上他没来得及看的一切,一个一个看完,再去见他。', score: 'CAPI', element: 'geo' },
+      { text: '……他不值得我哭。我没时间。我要继续走。', score: 'PANT', element: 'geo' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · V',
+    scene: '一个老朋友叛逃,带走了女皇想要的东西。女皇下令追杀,但他曾救过你的命。',
+    q: '你的选择:',
+    options: [
+      { text: '我亲自去。不是为了追杀——是为了亲自看他最后一眼,然后决定怎么做。', score: 'CAPI', element: 'geo' },
+      { text: '放他走。但我会把这件事永远记在账上,总有一天他要还。', score: 'PANT', element: 'geo' },
+      { text: '向女皇请求接管此案。然后我会让他"看起来死了"。', score: 'ARLE', element: 'pyro' },
+      { text: '坐视不理。叛逃是他的选择,追杀是别人的工作。我只管好自己。', score: 'SCAR', element: 'anemo' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · VI',
+    scene: '「博士」邀请你合作一项实验——消除一个孩子的记忆,让他"重获新生"。这是出于善意:那孩子的过去太痛苦了。',
+    q: '你会——',
+    options: [
+      { text: '同意。但只在孩子亲自请求时执行——遗忘也必须是他自己的选择。', score: 'ARLE', element: 'pyro' },
+      { text: '拒绝并阻止。痛苦是他存在过的证据,夺走它比杀死他更残忍。', score: 'SCAR', element: 'electro' },
+      { text: '同意,并要求博士给我一份完整的记忆备份——以防某天用得上。', score: 'DOTT', element: 'electro' },
+      { text: '什么都不做。让博士和那个孩子自己去决定。与我无关。', score: 'COLO', element: 'cryo' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · VII',
+    scene: '你发现你一直信任的组织,其实在利用你。你的成就、你的忠诚、你所有的付出——都只是别人棋盘上的一步。',
+    q: '你做的第一件事是:',
+    options: [
+      { text: '冷笑。然后在他们发现之前,我要先把整个棋盘翻过来。', score: 'PIER', element: 'anemo' },
+      { text: '默默退出。从明天起,我只为我自己的剧本活着。', score: 'SIGN', element: 'pyro' },
+      { text: '装作什么都不知道。现在动手的是傻瓜——我要先成为不可替代的人。', score: 'PULC', element: 'geo' },
+      { text: '笑出来。然后去找一个更强的对手。他们不配,我要升级。', score: 'TART', element: 'hydro' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · VIII',
+    scene: '你一生都在建造某样东西——可能是一个家、一个组织、一套机器、一个理念。今天,它在你面前开始崩坏。',
+    q: '你的手会:',
+    options: [
+      { text: '伸出去。我要亲自扶住它,哪怕我的手指碎掉。', score: 'CAPI', element: 'geo' },
+      { text: '放下来。所有被建造的东西终将崩坏,这是规律。', score: 'COLO', element: 'cryo' },
+      { text: '拿起纸笔,开始记录崩坏的每一个细节——下一次我会做得更好。', score: 'SAND', element: 'dendro' },
+      { text: '点燃它。与其看它慢慢碎,不如让它烧得灿烂一些。', score: 'SIGN', element: 'pyro' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · IX',
+    scene: '有一个人,你从未对任何人提起过他/她。每年某个特定的日子,你会独自一人去一个地方,待一整天,不说话。',
+    q: '那个地方是——',
+    options: [
+      { text: '一座坟。我每年都告诉他最近发生的事,就像他还在听。', score: 'SIGN', element: 'pyro' },
+      { text: '一座废墟。我要一个人在那里,想起自己"之前"是什么样。', score: 'PIER', element: 'anemo' },
+      { text: '一栋老房子。我在那里学会了"再也不要依赖任何人"。', score: 'SCAR', element: 'electro' },
+      { text: '一个决斗场。我在那里杀死过自己的一部分——我要记得那一天。', score: 'ARLE', element: 'pyro' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · X',
+    scene: '深夜,冰之女皇单独召见你。她没有坐在王座上,而是站在窗前,看着至冬的雪。她背对着你,问:「你恨本座吗?」',
+    q: '你的回答:',
+    options: [
+      { text: '「不恨。我恨的是让你变成这样的那个存在。我和你同路。」', score: 'PIER', element: 'anemo' },
+      { text: '「恨过。现在只是——习惯了。」', score: 'COLO', element: 'cryo' },
+      { text: '「我不恨你。但我不信你。您知道的,这没关系。」', score: 'DOTT', element: 'electro' },
+      { text: '「女皇大人,您今晚问了一个不该问的问题。我会假装没听见。」', score: 'PULC', element: 'geo' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · XI',
+    scene: '你知道自己即将死去——不是意外,是必然。你有三天时间。',
+    q: '你会怎么度过?',
+    options: [
+      { text: '继续工作。我的任务不会因为我死了就停下。那就尽量多做一点。', score: 'CAPI', element: 'geo' },
+      { text: '找到最强的对手,打一场痛快的。输赢不重要,过程要漂亮。', score: 'TART', element: 'hydro' },
+      { text: '安排好所有人的未来。三天,足够我写完最后一份遗嘱。', score: 'ARLE', element: 'pyro' },
+      { text: '回到那个人身边。什么都不说,只是陪着。然后走。', score: 'SIGN', element: 'pyro' }
+    ]
+  },
+  {
+    chapter: 'CAPUT · XII',
+    scene: '最后一题。冰之女皇授予你邪眼,赐予你执行官的名号。她问你:「你想要的,究竟是什么?」',
+    q: '你看着她的眼睛,说——',
+    options: [
+      { text: '「一个新的世界。这一个,已经烂到根里了。」', score: 'PIER', element: 'anemo' },
+      { text: '「一个答案。所有人都在逃避的、我想亲手揭开的那个答案。」', score: 'DOTT', element: 'electro' },
+      { text: '「我的家人平安。除此之外,什么都可以牺牲。」', score: 'ARLE', element: 'pyro' },
+      { text: '「我想要他回来——哪怕只是一晚。我会用余生交换。」', score: 'SIGN', element: 'pyro' },
+      { text: '「我想要一个再也不会让我失望的对手。」', score: 'TART', element: 'hydro' },
+      { text: '「我什么都不想要。所以我才什么都做得出来。」', score: 'COLO', element: 'cryo' },
+      { text: '「我要这个世界上再也没有像我这样的孩子。」', score: 'ARLE', element: 'pyro' },
+      { text: '「我要赢。赢过每一个曾经不认可我的人。」', score: 'PANT', element: 'geo' }
+    ]
+  }
+];
+
+/* ============================================
+   执行官徽记 SVG (用作立绘fallback)
+============================================ */
+function getSigilSvg(key) {
+  const sigils = {
+    PIER: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 50 12 L 80 50 L 50 88 L 20 50 Z"/><path d="M 50 25 Q 38 40 50 55 Q 62 40 50 25 Z" fill="#c9a86a" opacity="0.3"/><path d="M 35 60 Q 50 72 65 60" stroke-width="1.5"/><circle cx="40" cy="48" r="2" fill="#c9a86a"/><circle cx="60" cy="48" r="2" fill="#c9a86a"/></g></svg>`,
+    DOTT: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 30 35 L 50 20 L 70 35 L 70 65 L 50 80 L 30 65 Z"/><circle cx="50" cy="50" r="12" fill="#6b1818" opacity="0.4"/><circle cx="50" cy="50" r="6" fill="#c9a86a"/><path d="M 50 10 L 50 30 M 50 70 L 50 90 M 10 50 L 30 50 M 70 50 L 90 50" stroke-width="0.8"/></g></svg>`,
+    COLO: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 50 20 Q 35 35 30 50 Q 35 40 50 45 Q 65 40 70 50 Q 65 35 50 20 Z" fill="#c9a86a" opacity="0.3"/><path d="M 50 45 Q 40 55 35 70 Q 50 60 65 70 Q 60 55 50 45 Z" fill="#c9a86a" opacity="0.2"/><circle cx="50" cy="50" r="3" fill="#c9a86a"/></g></svg>`,
+    ARLE: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 30 30 L 70 70 M 70 30 L 30 70" stroke="#6b1818" stroke-width="2.5"/><circle cx="50" cy="50" r="22" stroke-dasharray="3,3"/><circle cx="50" cy="50" r="5" fill="#6b1818"/></g></svg>`,
+    PULC: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 30 40 Q 50 30 70 40 L 70 65 Q 50 75 30 65 Z" fill="#c9a86a" opacity="0.2"/><path d="M 40 45 L 60 45 M 40 55 L 60 55 M 40 65 L 60 65" stroke-width="0.8"/><circle cx="50" cy="35" r="4" fill="#c9a86a"/></g></svg>`,
+    SCAR: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 50 15 L 58 40 L 85 45 L 63 62 L 72 88 L 50 72 L 28 88 L 37 62 L 15 45 L 42 40 Z" fill="#3d1a4a" opacity="0.4" stroke="#c9a86a"/><circle cx="50" cy="50" r="4" fill="#c9a86a"/></g></svg>`,
+    SAND: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><circle cx="50" cy="50" r="28"/><circle cx="50" cy="50" r="18"/><path d="M 50 22 L 50 32 M 50 68 L 50 78 M 22 50 L 32 50 M 68 50 L 78 50" stroke-width="1.5"/><path d="M 32 32 L 38 38 M 68 68 L 62 62 M 68 32 L 62 38 M 32 68 L 38 62" stroke-width="1"/><rect x="46" y="46" width="8" height="8" fill="#c9a86a" transform="rotate(45 50 50)"/></g></svg>`,
+    SIGN: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 50 25 Q 40 40 35 50 Q 40 55 50 50 Q 60 55 65 50 Q 60 40 50 25 Z" fill="#6b1818" opacity="0.5"/><path d="M 50 50 L 50 80 M 40 60 L 50 70 L 60 60" stroke="#6b1818" stroke-width="1.5"/><circle cx="50" cy="40" r="3" fill="#c9a86a"/></g></svg>`,
+    PANT: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 50 20 L 75 50 L 50 80 L 25 50 Z" fill="#c9a86a" opacity="0.15"/><path d="M 50 30 L 65 50 L 50 70 L 35 50 Z" fill="#c9a86a" opacity="0.3"/><text x="50" y="58" text-anchor="middle" font-family="Cinzel,serif" font-size="22" font-weight="800" fill="#c9a86a">$</text></g></svg>`,
+    CAPI: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 50 18 L 50 82" stroke-width="2"/><path d="M 30 35 L 70 35 M 28 55 L 72 55" stroke-width="1.5"/><path d="M 40 25 L 50 18 L 60 25" stroke-width="1.5"/><circle cx="50" cy="45" r="6" fill="#c9a86a"/></g></svg>`,
+    TART: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#c9a86a" stroke-width="1.2"><circle cx="50" cy="50" r="44"/><path d="M 25 50 Q 35 30 50 50 Q 65 70 75 50" stroke="#5a7ba8" stroke-width="2"/><path d="M 25 50 Q 35 70 50 50 Q 65 30 75 50" stroke="#5a7ba8" stroke-width="2"/><circle cx="50" cy="50" r="5" fill="#c9a86a"/><path d="M 20 50 L 80 50" stroke-dasharray="2,3"/></g></svg>`
+  };
+  return sigils[key] || sigils.PIER;
+}
+
+/* ============================================
+   罗马数字
+============================================ */
+function toRoman(n) {
+  const romans = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+  return romans[n-1] || n;
+}
+
+/* ============================================
+   状态 & 核心逻辑
+============================================ */
+let currentQ = 0;
+let scores = {};
+let elementScores = {};
+Object.keys(EXECUTORS).forEach(k => scores[k] = 0);
+Object.keys(ELEMENTS).forEach(k => elementScores[k] = 0);
+
+function startQuiz() {
+  document.getElementById('cover').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const total = QUESTIONS.length;
+
+  document.getElementById('qIndex').textContent = `${toRoman(currentQ+1)} / ${toRoman(total)}`;
+  document.getElementById('progressBar').style.width = `${(currentQ / total) * 100}%`;
+
+  const card = document.getElementById('questionCard');
+  card.innerHTML = `
+    <div class="q-chapter">${q.chapter}</div>
+    <div class="q-scene">${q.scene}</div>
+    <div class="q-text">${q.q}</div>
+    <div class="options">
+      ${q.options.map((opt, i) => `
+        <button class="option" onclick="pickOption('${opt.score}', '${opt.element}')">${opt.text}</button>
+      `).join('')}
+    </div>
+  `;
+  card.style.animation = 'none';
+  card.offsetHeight;
+  card.style.animation = 'cardIn 0.7s cubic-bezier(.2,.8,.2,1)';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function pickOption(executorKey, elementKey) {
+  scores[executorKey] += 1;
+  if (elementKey && elementScores.hasOwnProperty(elementKey)) {
+    elementScores[elementKey] += 1;
+  }
+  currentQ++;
+
+  if (currentQ < QUESTIONS.length) {
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+/* ============================================
+   结果展示
+============================================ */
+function showResult() {
+  // 1. 找最高分执行官
+  let topKey = Object.keys(scores)[0];
+  Object.keys(scores).forEach(k => {
+    if (scores[k] > scores[topKey]) topKey = k;
+  });
+  const exec = EXECUTORS[topKey];
+
+  // 2. 找最高分元素
+  let topElement = Object.keys(elementScores)[0];
+  Object.keys(elementScores).forEach(k => {
+    if (elementScores[k] > elementScores[topElement]) topElement = k;
+  });
+  const elem = ELEMENTS[topElement];
+
+  document.getElementById('progressBar').style.width = '100%';
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+
+  // 立绘:尝试加载图片,失败就fallback到SVG徽记
+  renderPortrait(topKey, exec);
+
+  document.getElementById('resultSeat').textContent = exec.seat;
+  document.getElementById('resultName').textContent = exec.name;
+  document.getElementById('resultCodename').textContent = exec.codename;
+  document.getElementById('resultEpithet').textContent = exec.epithet;
+  document.getElementById('attrEye').textContent = exec.eye;
+  document.getElementById('attrWeapon').textContent = exec.weapon;
+  document.getElementById('attrOath').textContent = exec.oath;
+  document.getElementById('resultWho').innerHTML = exec.who;
+  document.getElementById('resultShadow').innerHTML = exec.shadow;
+  document.getElementById('resultDecree').innerHTML = exec.decree;
+  document.getElementById('resultFate').innerHTML = exec.fate;
+
+  // 元素徽章
+  const badge = document.getElementById('elementBadge');
+  badge.style.color = elem.color;
+  document.getElementById('elementSymbol').textContent = elem.symbol;
+  document.getElementById('elementText').textContent = `${elem.name} · ${elem.desc}`;
+
+  // 雷达图
+  renderRadar(topKey);
+
+  window.currentResult = { ...exec, key: topKey, element: elem };
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================
+   立绘:尝试<img>,失败fallback到SVG徽记
+============================================ */
+function renderPortrait(key, exec) {
+  const container = document.getElementById('resultPortrait');
+  container.innerHTML = '<div class="portrait-frame"></div>';
+
+  const img = document.createElement('img');
+  img.className = 'portrait-img';
+  img.src = `images/${exec.portraitFile}`;
+  img.alt = exec.name;
+
+  // 如果图片加载失败,展示SVG徽记
+  img.onerror = function() {
+    container.innerHTML = '<div class="portrait-frame"></div>';
+    const sigil = document.createElement('div');
+    sigil.className = 'portrait-sigil';
+    sigil.innerHTML = getSigilSvg(key);
+    container.appendChild(sigil);
+  };
+
+  container.appendChild(img);
+}
+
+/* ============================================
+   雷达图 (SVG绘制)
+============================================ */
+function renderRadar(topKey) {
+  const svg = document.getElementById('radarChart');
+  const keys = Object.keys(EXECUTORS);
+  const total = QUESTIONS.length;
+
+  // 计算每位执行官的百分比(相对题目总数)
+  const percentages = {};
+  keys.forEach(k => {
+    percentages[k] = Math.round((scores[k] / total) * 100);
+  });
+
+  // SVG参数
+  const cx = 200, cy = 200;
+  const maxR = 150;
+  const n = keys.length; // 11
+
+  // 计算每个顶点坐标
+  function pointAt(i, ratio) {
+    const angle = (i / n) * Math.PI * 2 - Math.PI / 2; // 从顶部开始
+    return {
+      x: cx + Math.cos(angle) * maxR * ratio,
+      y: cy + Math.sin(angle) * maxR * ratio
+    };
+  }
+
+  let svgContent = '';
+
+  // 背景同心多边形(4层)
+  for (let layer = 1; layer <= 4; layer++) {
+    const r = layer / 4;
+    let points = '';
+    for (let i = 0; i < n; i++) {
+      const p = pointAt(i, r);
+      points += `${p.x},${p.y} `;
+    }
+    svgContent += `<polygon points="${points}" fill="none" stroke="rgba(201,168,106,0.15)" stroke-width="0.8"/>`;
+  }
+
+  // 放射线
+  for (let i = 0; i < n; i++) {
+    const p = pointAt(i, 1);
+    svgContent += `<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="rgba(201,168,106,0.1)" stroke-width="0.5"/>`;
+  }
+
+  // 数据多边形
+  let dataPoints = '';
+  keys.forEach((k, i) => {
+    // 最小展示 0.08,避免全缩成一点
+    const ratio = Math.max(scores[k] / total, 0.05);
+    const p = pointAt(i, ratio);
+    dataPoints += `${p.x},${p.y} `;
+  });
+  svgContent += `<polygon points="${dataPoints}" fill="rgba(201,168,106,0.18)" stroke="#c9a86a" stroke-width="1.5"/>`;
+
+  // 数据点
+  keys.forEach((k, i) => {
+    const ratio = Math.max(scores[k] / total, 0.05);
+    const p = pointAt(i, ratio);
+    const isTop = k === topKey;
+    svgContent += `<circle cx="${p.x}" cy="${p.y}" r="${isTop ? 5 : 3}" fill="${isTop ? '#e6cd8e' : '#c9a86a'}" ${isTop ? 'filter="drop-shadow(0 0 6px #c9a86a)"' : ''}/>`;
+  });
+
+  // 顶点标签(执行官名字)
+  keys.forEach((k, i) => {
+    const exec = EXECUTORS[k];
+    const p = pointAt(i, 1.15);
+    const isTop = k === topKey;
+    svgContent += `
+      <text x="${p.x}" y="${p.y}"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            font-family="'Noto Serif SC', serif"
+            font-size="11"
+            font-weight="${isTop ? '700' : '400'}"
+            fill="${isTop ? '#e6cd8e' : 'rgba(232,221,196,0.7)'}">${exec.name}</text>`;
+  });
+
+  svg.innerHTML = svgContent;
+
+  // 图例(右边排序列表)
+  const legend = document.getElementById('radarLegend');
+  const sorted = keys.slice().sort((a, b) => scores[b] - scores[a]);
+  legend.innerHTML = sorted.map(k => {
+    const e = EXECUTORS[k];
+    const pct = percentages[k];
+    const cls = k === topKey ? 'radar-item top' : 'radar-item';
+    return `
+      <div class="${cls}">
+        <span class="radar-item-seat">${e.seat.replace('第','').replace('席','')}</span>
+        <span class="radar-item-name">${e.name}</span>
+        <span class="radar-item-pct">${pct}%</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function restart() {
+  currentQ = 0;
+  Object.keys(EXECUTORS).forEach(k => scores[k] = 0);
+  Object.keys(ELEMENTS).forEach(k => elementScores[k] = 0);
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('cover').style.display = 'block';
+  document.getElementById('progressBar').style.width = '0%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function shareResult() {
+  const r = window.currentResult;
+  const cleanHtml = (s) => s.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+  const text = `◆ 愚人众TI · 授勋诏书 ◆
+
+${r.seat} 「${r.name}」${r.codename}
+—— ${r.epithet}
+【${r.element.symbol} ${r.element.name}】${r.element.desc}
+
+【邪眼】${r.eye}
+【武器】${r.weapon}
+【誓言】${r.oath}
+
+—— 女皇赐言 ——
+${cleanHtml(r.decree)}
+
+—— 终幕 · 汝之命运 ——
+${cleanHtml(r.fate)}
+
+#愚人众TI #原神二创`;
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('◆ 诏书已誊抄完毕。去告诉世界你的席位吧。');
+    }).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  alert('◆ 诏书已誊抄完毕。');
+}
+</script>
+
+</body>
+</html>
